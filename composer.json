@@ -1,0 +1,9 @@
+{
+    "name": "linkorb/vultr",
+    "version": "1.0",
+    "autoload": {
+        "psr-4" : {
+            "LinkORB\\Vultr\\" : "src/"
+        }
+    }
+}
