@@ -1,6 +1,10 @@
 {
-    "name": "linkorb/vultr",
-    "version": "1.0",
+    "name": "linkorb/vultr-client-php",
+    "description": "PHP Client library for vultr.com cloud servers",
+    "keywords": ["vultr", "compute", "dns", "cloud", "vps", "linkorb"],
+    "type": "library",
+    "license": "MIT",
+
     "require": {
         "guzzlehttp/guzzle": "~6.0"
     },
