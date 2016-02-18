@@ -1,0 +1,12 @@
+{
+    "name": "linkorb/vultr",
+    "version": "1.0",
+    "require": {
+        "guzzlehttp/guzzle": "~6.0"
+    },
+    "autoload": {
+        "psr-4" : {
+            "LinkORB\\Vultr\\" : "src/"
+        }
+    }
+}
