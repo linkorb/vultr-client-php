@@ -10,5 +10,4 @@ class IpEntity extends AbstractEntity
     protected $gateway ;
     protected $type ;
     protected $reverse ;
-    
 }

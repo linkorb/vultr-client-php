@@ -5,26 +5,20 @@ namespace LinkORB\Vultr;
 class ServerApi extends AbstractApi
 {
 
-    public function __construct(\GuzzleHttp\Client $client, $key)
+    public function __construct(\GuzzleHttp\Client $client, $key, &$rate)
     {
-        parent::__construct($client, $key) ;
+        parent::__construct($client, $key, $rate) ;
         $this->node = 'server' ;
     }
 
-    public function getAll($subid = 0)
+    public function getList($subid = 0)
     {
-        try {
-            if ($subid != 0) {
-                $res = $this->client->get(sprintf('%s/list?api_key=%s&SUBID=%d', $this->node, $this->key, $subid), ['http_errors' => false]) ;
-                $rtmp = $this->getResult($res, true) ;
-                $res = new ServerEntity($rtmp) ;
-            } else {
-                $res = $this->client->get(sprintf('%s/list?api_key=%s', $this->node, $this->key), ['http_errors' => false]) ;
-                $rtmp = $this->getResult($res, true) ;
-                $res = $this->createArrayOfEntity($rtmp, "ServerEntity") ;
-            }
-        } catch(\Exception $e) {
-            $res = false ;
+        if ($subid != 0) {
+            $rtmp = $this->doGet("list", ['SUBID' => $subid], true) ;
+            $res = new ServerEntity($rtmp) ;
+        } else {
+            $rtmp = $this->doGet("list", [], true) ;
+            $res = $this->createArrayOfEntity($rtmp, "ServerEntity") ;
         }
         return $res ;
     }
