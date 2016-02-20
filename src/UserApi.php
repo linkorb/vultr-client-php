@@ -18,13 +18,15 @@ class UserApi extends AbstractApi
     
     public function create($user)
     {
-        if (is_object($user) && ($user instanceof DnsRecordEntity)) {
+        if (is_object($user) && ($user instanceof UserEntity)) {
             $content = [ 
                 'name' => $user->name, 
                 'email' => $user->email,
                 'password' => $user->password,
                 'acls' => $user->acls ] ;
-            (strlen($rec->api_enabled) > 0) ? $content['api_enabled'] = $user->api_enabled ;
+            if (strlen($rec->api_enabled) > 0) {
+                $content['api_enabled'] = $user->api_enabled ;
+            }
             return $this->doPost("create", $content, true) ;
         } else {
             $this->code = -1 ;

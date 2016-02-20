@@ -34,7 +34,7 @@ class StartupScriptApi extends AbstractApi
                 if (strlen($rec->name) > 0) {
                     $content['name'] = $rec->name ;
                 }
-                if (strlen($rec->ssh_key) > 0) {
+                if (strlen($rec->script) > 0) {
                     $content['script'] = $rec->script ;
                 }
                 return $this->doPost("update", $content) ;

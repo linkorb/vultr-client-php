@@ -1,0 +1,10 @@
+
+According to documentation at https://www.vultr.com/api/ API requests are limited to an average of 2/s.
+when you create api as:
+    $vultrApi = new Vultr("key");
+default rate limit is 2 req/s.
+
+If you absolutely sure that you need other rate limit (may be you have privileged access to api) - you can change it:
+    $vultrApi = new Vultr("key", 5); // set limit rate to 5 req/sec
+
+but if the server does not agree with this - you get 503 error on some queries.
