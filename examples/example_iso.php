@@ -13,8 +13,8 @@ function printReplyIfError($api, $res) {
 
 $vultrApi = new Vultr("PUT_YOUR_API_KEY_HERE");
 
-$api = $vultrApi->accountApi() ;
+$api = $vultrApi->isoApi() ;
 
-$res = $api->info() ;
+$res = $api->getList() ;
 var_dump($res) ;
 printReplyIfError($api, $res) ;

@@ -36,7 +36,7 @@ class DnsApi extends AbstractApi
     public function createRecord($domain, $rec)
     {
         if (is_object($rec) && ($rec instanceof DnsRecordEntity)) {
-            $content = array('domain' => $domain, 'name' => $rec->name, 'data' => $rec->data) ;
+            $content = array('domain' => $domain, 'name' => $rec->name, 'data' => $rec->data, 'type' => $rec->type) ;
             if ($rec->priority > 0) {
                 $content['priority'] = $rec->priority ;
             }
@@ -60,20 +60,24 @@ class DnsApi extends AbstractApi
     {
         if (is_object($rec) && ($rec instanceof DnsRecordEntity)) {
             if ($rec->recordid > 0) {
-                $content = array('domain' => $domain, 'RECORDID' => $rec->recordid) ;
-                if (strlen($rec->data) > 0) {
-                    $content['data'] = $rec->data ;
+                if (strlen($rec->type) > 0) {
+                    $content = array('domain' => $domain, 'RECORDID' => $rec->recordid, 'type' => $rec->type) ;
+                    if (strlen($rec->data) > 0) {
+                        $content['data'] = $rec->data ;
+                    }
+                    if (strlen($rec->name) > 0) {
+                        $content['name'] = $rec->name ;
+                    }
+                    if ($rec->priority > 0) { 
+                        $content['priority'] = $rec->priority ;
+                    }
+                    if ($rec->ttl > 0) {
+                        $content['ttl'] = $rec->ttl ;
+                    }
+                    return $this->doPost("update_record", $content) ;
+                } else {
+                    $this->reply = "Invalid rec->type value" ;
                 }
-                if (strlen($rec->name) > 0) {
-                    $content['name'] = $rec->name ;
-                }
-                if ($rec->priority > 0) { 
-                    $content['priority'] = $rec->priority ;
-                }
-                if ($rec->ttl > 0) {
-                    $content['ttl'] = $rec->ttl ;
-                }
-                return $this->doPost("create_record", $content) ;
             } else {
                 $this->reply = "Invalid rec->recordid value" ;
             }

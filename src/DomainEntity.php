@@ -2,7 +2,7 @@
 
 namespace LinkORB\Vultr;
 
-class AccountEntity extends AbstractEntity
+class DomainEntity extends AbstractEntity
 {
     protected $domain ;
     protected $date_created ;

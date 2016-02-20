@@ -36,15 +36,4 @@ class ReservedIpApi extends AbstractApi
     {
         return $this->doPost("detach", ['ip_address' => $ip, 'detach_SUBID' => $subid]) ;
     }
-
-    public function destroy($subid)
-    {
-        return $this->doPost("destroy", ['SUBID' => $subid]) ;
-    }
-
-    public function destroy($subid)
-    {
-        return $this->doPost("destroy", ['SUBID' => $subid]) ;
-    }
-    
 }

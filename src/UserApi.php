@@ -40,14 +40,24 @@ class UserApi extends AbstractApi
     
     public function update($user)
     {
-        if (is_object($user) && ($user instanceof DnsRecordEntity)) {
+        if (is_object($user) && ($user instanceof UserEntity)) {
             if(strlen($user->userid) > 0) {
                 $content = ['USERID' => $user->userid] ;
-                (strlen($user->email) > 0) ? $content['email'] = $user->email ;
-                (strlen($user->name) > 0) ? $content['name'] = $user->name ;
-                (strlen($user->password) > 0) ? $content['password'] = $user->password ;
-                (strlen($user->api_enabled) > 0) ? $content['api_enabled'] = $user->api_enabled ;
-                (sizeof($user->acls) > 0) ? $content['acls'] = $user->acls ;
+                if (strlen($user->email) > 0) {
+                    $content['email'] = $user->email ;
+                }
+                if (strlen($user->name) > 0) {
+                    $content['name'] = $user->name ;
+                }
+                if (strlen($user->password) > 0) {
+                    $content['password'] = $user->password ;
+                }
+                if (strlen($user->api_enabled) > 0) {
+                    $content['api_enabled'] = $user->api_enabled ;
+                }
+                if (sizeof($user->acls) > 0) {
+                    $content['acls'] = $user->acls ;
+                }
                 
                 return $this->doPost("update", $content) ;
             } else {
@@ -59,5 +69,4 @@ class UserApi extends AbstractApi
         $this->code = -1 ;
         return false ;
     }
-    
 }

@@ -6,8 +6,8 @@ use LinkORB\Vultr\Vultr;
 
 function printReplyIfError($api, $res) {
     if($res === false) {
-        echo $server->code."\n" ;
-        echo $server->reply."\n" ;
+        echo $api->code."\n" ;
+        echo $api->reply."\n" ;
     }
 }
 

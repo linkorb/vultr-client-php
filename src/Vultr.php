@@ -14,7 +14,7 @@ class Vultr
      * @var string
      */
     const ENDPOINT = 'https://api.vultr.com/v1/';
-    const RPS_LIMIT = 1.9 ; // Actually, in this API rate limit is 2 req/sec
+    const RPS_LIMIT = 1.9 ; // Actually, in this API rate limit is 2 req/sec, choose 1.9 for omit clock jitter
 
     /**
      * @var string

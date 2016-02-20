@@ -11,15 +11,15 @@ class RegionApi extends AbstractApi
         $this->node = 'regions' ;
     }
     
-    public function listRegions()
+    public function getList()
     {
         $rtmp = $this->doGet("list", [], true) ;
         return $this->createArrayOfEntity($rtmp, "RegionEntity") ;
     }
 
-    public function availability()
+    public function availability($dcid)
     {
-        return $this->doGet("availability", [], true) ;
+        return $this->doGet("availability", ['DCID' => $dcid], true) ;
     }
     
     
