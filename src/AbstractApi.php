@@ -18,21 +18,35 @@ abstract class AbstractApi
     public $reply ;
 
     protected $node ;
+    
+    protected $rate ;
 
     
     /**
      * @param GuzzleHttp\Client $client
      * @param string            $key
      */
-    public function __construct(\GuzzleHttp\Client $client, $key)
+    public function __construct(\GuzzleHttp\Client $client, $key, &$rate)
     {
         $this->client = $client;
         $this->key = $key;
+        $this->rate = &$rate ;
     }
+    
+    protected function respectRateLimit() {
+        $cur_time = microtime(true) ;
+        $delta_time = $cur_time - $this->rate['last_call_time'] ;
+        if ($delta_time < $this->rate['pause_time']) {
+            usleep(($this->rate['pause_time'] - $delta_time)*1000000) ;
+        }
+        $this->rate['last_call_time'] = microtime(true) ;
+    }
+    
 
     protected function doGet($name, $content = array(), $assoc = false) {
         $res = false ;
         $this->code = 0 ;
+        $this->respectRateLimit() ;
         try {
             if (sizeof($content) > 0) {
                 $rtmp = $this->client->get(sprintf('%s/%s?api_key=%s&%s', $this->node, $name, $this->key, http_build_query($content)), 
@@ -49,6 +63,7 @@ abstract class AbstractApi
     protected function doPost($name, $content, $assoc = false) {
         $res = false ;
         $this->code = 0 ;
+        $this->respectRateLimit() ;
         try {
             $rtmp = $this->client->request("POST", sprintf('%s/%s?api_key=%s', $this->node, $name, $this->key), 
                 ['form_params' => $content, 'http_errors' => false]);
